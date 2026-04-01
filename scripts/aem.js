@@ -375,6 +375,41 @@ function decorateTemplateAndTheme() {
   if (theme) addClasses(document.body, theme);
 }
 
+/**adding class name in a row level */
+export function applyBlockItemStyles(block) {
+  const shortBlockName = block.classList[0];
+  const rows = [...block.children];
+  rows.forEach((row, index) => {
+    if (row.children.length === 2) {
+      const firstCol = row.children[0];
+      const secondCol = row.children[1];
+      const firstColText = firstCol.textContent.trim().toLowerCase();
+
+      if (firstColText === 'style' && index > 0) {
+        const styleAttributes = secondCol.textContent.trim();
+        if (styleAttributes) {
+          const classes = styleAttributes.split(',')
+            .map((attr) => toClassName(attr.trim()))
+            .filter((attr) => attr);
+
+          const targetRow = rows[index - 1];
+          if (targetRow) {
+            targetRow.classList.add(`${shortBlockName}__item`);
+            const variants = [];
+            classes.forEach((className) => {
+              variants.push(className);
+              targetRow.classList.add(`${shortBlockName}__item--${className}`);
+            });
+            block.dataset.variant = variants.join('|');
+          }
+
+          row.remove();
+        }
+      }
+    }
+  });
+}
+
 /**
  * Wrap inline text content of block cells within a <p> tag.
  * @param {Element} block the block element
