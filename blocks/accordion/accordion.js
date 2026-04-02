@@ -1,4 +1,4 @@
-import { applyBlockItemStyles } from "../../scripts/aem.js";
+import { applyBlockItemStyles } from '../../scripts/aem.js';
 
 /*
  * Accordion Block

@@ -375,9 +375,8 @@ function decorateTemplateAndTheme() {
   if (theme) addClasses(document.body, theme);
 }
 
-/**adding class name in a row level */
+/** adding class name in a row level */
 export function applyBlockItemStyles(block) {
-  const shortBlockName = block.classList[0];
   const rows = [...block.children];
   rows.forEach((row, index) => {
     if (row.children.length === 2) {
