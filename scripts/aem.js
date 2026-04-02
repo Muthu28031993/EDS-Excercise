@@ -394,11 +394,10 @@ export function applyBlockItemStyles(block) {
 
           const targetRow = rows[index - 1];
           if (targetRow) {
-            targetRow.classList.add(`${shortBlockName}__item`);
             const variants = [];
             classes.forEach((className) => {
               variants.push(className);
-              targetRow.classList.add(`${shortBlockName}__item--${className}`);
+              targetRow.classList.add(`${className}`);
             });
             block.dataset.variant = variants.join('|');
           }

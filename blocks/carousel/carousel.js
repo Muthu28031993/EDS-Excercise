@@ -1,4 +1,5 @@
 import { fetchPlaceholders } from '../../scripts/placeholders.js';
+import { applyBlockItemStyles } from '../../scripts/aem.js';
 
 function updateActiveSlide(slide) {
   const block = slide.closest('.carousel');
@@ -84,6 +85,11 @@ function createSlide(row, slideIndex, carouselId) {
     slide.append(column);
   });
 
+  // copy any classes from the original row to the slide so style rows applied earlier stay with the slide
+  row.classList.forEach((c) => {
+    if (c) slide.classList.add(c);
+  });
+
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) {
     slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));
@@ -96,7 +102,11 @@ let carouselId = 0;
 export default async function decorate(block) {
   carouselId += 1;
   block.setAttribute('id', `carousel-${carouselId}`);
-  const rows = block.querySelectorAll(':scope > div');
+  // read rows and apply any style rows so they attach classes to the row elements
+  let rows = block.querySelectorAll(':scope > div');
+  applyBlockItemStyles(block);
+  // re-query rows because applyBlockItemStyles may have removed style rows
+  rows = block.querySelectorAll(':scope > div');
   const isSingleSlide = rows.length < 2;
 
   const placeholders = await fetchPlaceholders();

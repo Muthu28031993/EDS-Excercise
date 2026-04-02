@@ -1,3 +1,5 @@
+import { applyBlockItemStyles } from "../../scripts/aem.js";
+
 /*
  * Accordion Block
  * Recreate an accordion
@@ -20,4 +22,5 @@ export default function decorate(block) {
     details.append(summary, body);
     row.replaceWith(details);
   });
+  applyBlockItemStyles(block);
 }

@@ -1,10 +1,16 @@
-import { createOptimizedPicture } from '../../scripts/aem.js';
+import { createOptimizedPicture, applyBlockItemStyles } from '../../scripts/aem.js';
 
 export default function decorate(block) {
   /* change to ul, li */
+  applyBlockItemStyles(block);
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
+    // preserve classes and dataset from the original row
+    const rowClasses = Array.from(row.classList || []);
+    rowClasses.forEach((c) => { if (c) li.classList.add(c); });
+    Object.keys(row.dataset || {}).forEach((k) => { li.dataset[k] = row.dataset[k]; });
+
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
       if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';

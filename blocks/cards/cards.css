@@ -2,14 +2,16 @@
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 24px;
 }
 
 .cards > ul > li {
   border: 1px solid #dadada;
   background-color: var(--background-color);
+  width: calc(25% - 24px);
+  gap: 24px;
 }
 
 .cards .cards-card-body {
@@ -22,6 +24,37 @@
 
 .cards > ul > li img {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 1;
   object-fit: cover;
+  min-height: 200px;
+}
+
+.cards .card-lg {
+  width: calc(50% - 24px);
+}
+
+.cards .card-bg-blue {
+  background-color: #6a5acd63;
+}
+
+.cards .bg-red {
+  background-color: #bc8f8f91;
+}
+
+.cards .bg-org {
+  background-color: #ffa5004d;
+}
+
+.cards .bg-violet {
+  background-color: #ee82ee4d;  
+}
+
+.cards .bg-brown {
+  background-color: #a52a2aba;
+  color: white;
+}
+
+.cards .flip {
+  display: flex;
+  flex-direction: column-reverse;
 }
