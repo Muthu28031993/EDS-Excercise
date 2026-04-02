@@ -85,7 +85,7 @@ function createSlide(row, slideIndex, carouselId) {
     slide.append(column);
   });
 
-  // copy any classes from the original row to the slide 
+  // copy any classes from the original row to the slide
   // so style rows applied earlier stay with the slide
   row.classList.forEach((c) => {
     if (c) slide.classList.add(c);
