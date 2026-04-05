@@ -1,21 +1,9 @@
-// Script to convert the custom-form block visual rows into actual form fields
-// It expects the block HTML structure described by the user and a link to a JSON file in the last row.
-// Behavior:
-// - Reads the first column cell text (type/key) and second column text (label / option values)
-// - Matches the key to an entry in the fetched JSON (by type or by reasonable synonyms)
-// - Creates corresponding form controls, adds placeholder from JSON when applicable
-// - Adds a required star on the label when JSON says required: "yes"
-// - For button and radio (ratio) do not add placeholder; radio and dropdown read options from second column
-// - After building form fields, replaces the original block structure with the form
 
-'use strict';
-
-// Simplified helpers
-function normalizeKey(s){return (s||'').toString().trim().toLowerCase();}
+function normalizeKey(s) { return (s||'').toString().trim().toLowerCase(); }
 
 function buildJsonMap(json){
-  const map=new Map();
-  if(!json||!Array.isArray(json.data)) return map;
+  const map = new Map ();
+  if (!json || !Array.isArray(json.data)) return map;
   json.data.forEach(item=>{
     if(!item||!item.name) return;
     const k=normalizeKey(item.name);
