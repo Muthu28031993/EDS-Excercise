@@ -115,7 +115,7 @@ function transformBlock(block){
       const required=jsonEntry?jsonEntry.required:false;
       
       // Combine placeholder with first column text
-      let combinedPlaceholder = placeholder ? `${placeholder.toLowerCase()} ${secondP.textContent.trim()}` : firstP.textContent.trim();
+      let combinedPlaceholder = placeholder ? `${placeholder} ${secondP.textContent.trim()}` : firstP.textContent.trim();
 
       const fieldWrapper=document.createElement('div'); fieldWrapper.className='cf-form-field';
 
