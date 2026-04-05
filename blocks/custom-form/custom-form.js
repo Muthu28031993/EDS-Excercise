@@ -157,4 +157,14 @@ function transformBlock(block){
 
 // public API
 if(typeof window!=='undefined') window.customFormTransform=transformBlock;
-export default function decorate(block){ if(!block && typeof document!=='undefined') block=document.querySelector('.custom-form.block'); if(block) transformBlock(block); }
+export default function decorate(block){
+  if(!block && typeof document!=='undefined') {
+    const container = document.querySelector('.custom-form-container');
+    if(container) {
+      block = container.querySelector('.custom-form.block');
+    }
+  }
+  if(block && block.closest('.custom-form-container')) {
+    transformBlock(block);
+  }
+}
