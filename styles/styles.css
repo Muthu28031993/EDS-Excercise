@@ -323,3 +323,39 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+.section.two-column {
+  width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 70% 30%;
+  grid-auto-rows: auto;
+  gap: 20px;
+  align-items: start;
+  grid-auto-flow: column;
+}
+
+.section.two-column > [class$="-wrapper"] {
+  grid-column: 1 / 2;
+  align-self: start;
+  justify-self: start;
+}
+
+.section.two-column > [class$="-wrapper"].content-right,
+.section.two-column > [class$="-wrapper"]:has(.content-right) {
+  grid-column: 2 / 3;
+  align-self: start;
+  justify-self: start;
+}
+
+.section.two-column .cards li {
+  width: 25%;
+}
+
+.section.two-column .cards.content-right li {
+  width: 100%;
+}
+
+.section.two-column .accordion-wrapper, .section.two-column .cards-wrapper:has(.content-right) {
+  padding: 0;
+}

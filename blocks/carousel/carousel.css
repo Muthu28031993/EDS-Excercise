@@ -32,6 +32,14 @@
   min-height: min(50vw, calc(100dvh - var(--header-height)));
 }
 
+.carousel .carousel-slide.center-align .carousel-slide-content {
+  margin: 0 auto;
+}
+
+.carousel .carousel-slide.right-align .carousel-slide-content {
+  margin-left: auto;
+}
+
 .carousel .carousel-slide:has(.carousel-slide-content[data-align='center']) {
   align-items: center;
 }

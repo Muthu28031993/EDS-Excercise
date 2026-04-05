@@ -59,3 +59,11 @@
   border-top: 1px solid #dadada;
   background-color: var(--background-color);
 }
+
+.bg-aqua {
+  background-color: #7fffd447;
+}
+
+.bg-pearl {
+  background-color: #eae0c8a1;
+}
