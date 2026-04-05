@@ -1,12 +1,12 @@
-function normalizeKey(s) { return (s||'').toString().trim().toLowerCase(); }
+function normalizeKey(s) { return (s || '').toString().trim().toLowerCase(); }
 
 function buildJsonMap(json){
   const map = new Map();
   if (!json || !Array.isArray(json.data)) return map;
   json.data.forEach(item => {
     if (!item || !item.name) return;
-    const k=normalizeKey(item.name);
-    map.set(k,{placeholder:item.placeholder||'',required:normalizeKey(item.required)==='yes',raw:item});
+    const k = normalizeKey(item.name);
+    map.set(k, { placeholder: item.placeholder || '', required: normalizeKey(item.required) === 'yes', raw: item });
   });
   return map;
 }
@@ -149,7 +149,10 @@ function transformBlock(block){
     });
 
     if(block.parentNode){ block.parentNode.insertBefore(form,block); block.parentNode.removeChild(block); }
-  }).catch(err=>{ console.error('custom-form error:',err); });
+  }).catch(err=>{ 
+    // eslint-disable-next-line no-console
+    console.error('custom-form error:',err); 
+  });
 }
 
 // public API
