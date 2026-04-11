@@ -1,0 +1,72 @@
+/* Ticker Container */
+
+.ticker-wrapper {
+
+    width: 100%;
+
+    overflow: hidden;
+
+    background: #1a1a1a; /* Dark theme */
+
+    color: #fff;
+
+    padding: 10px 0;
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    border-bottom: 2px solid #333;
+
+}
+ 
+/* The moving track */
+
+.ticker-content {
+
+    display: flex;
+
+    white-space: nowrap;
+
+    animation: scroll 30s linear infinite;
+
+}
+ 
+/* Stock Item Styling */
+
+.stock-item {
+
+    padding: 0 40px;
+
+    display: inline-block;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+}
+ 
+.price { margin-left: 8px; }
+ 
+.change.up { color: #00ff88; } /* Green for profit */
+
+.change.down { color: #ff4d4d; } /* Red for loss */
+ 
+/* Animation */
+
+@keyframes scroll {
+
+    0% { transform: translateX(0); }
+
+    100% { transform: translateX(-50%); } 
+
+    /* We move -50% because we will duplicate the content for a seamless loop */
+
+}
+ 
+/* Pause on hover */
+
+.ticker-wrapper:hover .ticker-content {
+
+    animation-play-state: paused;
+
+}
+ 

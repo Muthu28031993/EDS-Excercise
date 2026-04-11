@@ -1,3 +1,5 @@
+import { applyBlockItemStyles } from '../../scripts/aem.js';
+
 function normalizeKey(s) { return (s || '').toString().trim().toLowerCase(); }
 
 function buildJsonMap(json) {
@@ -88,6 +90,22 @@ function transformBlock(block){
   fetchJson.then(json=>{
     const jsonMap=buildJsonMap(json);
     const form=document.createElement('form'); form.className='cf-form';
+    // Live data object to capture input values
+    const liveData = {};
+    // Helper to add event listeners to input fields
+    function addLiveCapture(el, name) {
+      if (!el || !name) return;
+      const handler = () => {
+        if (el.type === 'radio') {
+          if (el.checked) liveData[name] = el.value;
+        } else {
+          liveData[name] = el.value;
+        }
+      };
+      el.addEventListener('input', handler);
+      // For select, also listen to 'change'
+      if (el.tagName === 'SELECT') el.addEventListener('change', handler);
+    }
 
     rows.forEach(row=>{
       const cols=Array.from(row.children).filter(c=>c.tagName&&c.tagName.toLowerCase()==='div');
@@ -118,34 +136,96 @@ function transformBlock(block){
       let combinedPlaceholder = placeholder ? `${placeholder} ${secondP.textContent.trim()}` : firstP.textContent.trim();
 
       const fieldWrapper=document.createElement('div'); fieldWrapper.className='cf-form-field';
+      let inputName = null;
 
       if(resolvedType==='button'){
-        fieldWrapper.appendChild(createButton(labelText));
+        const btn = createButton(labelText);
+        btn.addEventListener('click', function() {
+          // Show liveData as JSON when button is clicked
+          alert('Live form data (JSON):\n' + JSON.stringify(liveData, null, 2));
+          // Reset all input fields in the form
+          form.reset();
+          // Clear liveData object
+          Object.keys(liveData).forEach(k => delete liveData[k]);
+        });
+        fieldWrapper.appendChild(btn);
       } else if(resolvedType==='ratio' || resolvedType==='radio'){
         const options=labelText.split(',').map(s=>s.trim()).filter(Boolean);
         // use only parenthetical text from first column as the visible label if available
         const visibleLabel = extractParenContent(firstP.textContent) || firstP.textContent.trim();
         const nameForInputs = (visibleLabel || firstP.textContent.trim()).replace(/\s+/g,'-').replace(/[^a-z0-9\-]/gi,'').toLowerCase();
         fieldWrapper.appendChild(createLabel(visibleLabel,required));
-        fieldWrapper.appendChild(createRadioGroup(nameForInputs,options,required));
+        const radioGroup = createRadioGroup(nameForInputs,options,required);
+        // Add event listeners to each radio input
+        Array.from(radioGroup.querySelectorAll('input[type="radio"]')).forEach(radio => {
+          addLiveCapture(radio, nameForInputs);
+        });
+        fieldWrapper.appendChild(radioGroup);
+        inputName = nameForInputs;
       } else if(resolvedType==='dropdown' || resolvedType==='select'){
         const options=labelText.split(',').map(s=>s.trim()).filter(Boolean);
         // use only parenthetical text from first column as the visible label if available
         const visibleLabel = extractParenContent(firstP.textContent) || firstP.textContent.trim();
         fieldWrapper.appendChild(createLabel(visibleLabel,required));
-        fieldWrapper.appendChild(createSelect(options,required));
+        const select = createSelect(options,required);
+        // Use label as name
+        const selectName = visibleLabel.replace(/\s+/g,'-').replace(/[^a-z0-9\-]/gi,'').toLowerCase();
+        select.name = selectName;
+        addLiveCapture(select, selectName);
+        fieldWrapper.appendChild(select);
+        inputName = selectName;
       } else if(resolvedType==='textarea'){
         fieldWrapper.appendChild(createLabel(secondColText || firstP.textContent.trim(),required));
-        fieldWrapper.appendChild(createTextarea(combinedPlaceholder,required));
+        const ta = createTextarea(combinedPlaceholder,required);
+        // Use label as name
+        const taName = (secondColText || firstP.textContent.trim()).replace(/\s+/g,'-').replace(/[^a-z0-9\-]/gi,'').toLowerCase();
+        ta.name = taName;
+        addLiveCapture(ta, taName);
+        fieldWrapper.appendChild(ta);
+        inputName = taName;
       } else if(resolvedType){
         fieldWrapper.appendChild(createLabel(secondColText || firstP.textContent.trim(),required));
-        fieldWrapper.appendChild(createInput(resolvedType,combinedPlaceholder,required));
+        const inp = createInput(resolvedType,combinedPlaceholder,required);
+        // Use label as name
+        const inpName = (secondColText || firstP.textContent.trim()).replace(/\s+/g,'-').replace(/[^a-z0-9\-]/gi,'').toLowerCase();
+        inp.name = inpName;
+        addLiveCapture(inp, inpName);
+        fieldWrapper.appendChild(inp);
+        inputName = inpName;
       } else {
         fieldWrapper.appendChild(createLabel(secondColText || firstP.textContent.trim(),false));
-        fieldWrapper.appendChild(createInput('text','',false));
+        const inp = createInput('text','',false);
+        const inpName = (secondColText || firstP.textContent.trim()).replace(/\s+/g,'-').replace(/[^a-z0-9\-]/gi,'').toLowerCase();
+        inp.name = inpName;
+        addLiveCapture(inp, inpName);
+        fieldWrapper.appendChild(inp);
+        inputName = inpName;
       }
 
       form.appendChild(fieldWrapper);
+    });
+
+    // Add submit handler to send data to backend endpoint
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = {};
+      new FormData(form).forEach((value, key) => {
+        data[key] = value;
+      });
+      try {
+        const resp = await fetch('/api/submit-form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (resp.ok) {
+          alert('Form submitted successfully!');
+        } else {
+          alert('Submission failed.');
+        }
+      } catch (err) {
+        alert('Submission error.');
+      }
     });
 
     if(block.parentNode){ block.parentNode.insertBefore(form,block); block.parentNode.removeChild(block); }

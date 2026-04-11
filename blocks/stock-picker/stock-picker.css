@@ -1,0 +1,117 @@
+/* Stock Picker Block - Use same styles as stock ticker */
+.stock-picker-container {
+    background-color: cadetblue;
+    padding: 20px;
+}
+
+.stock-picker {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  gap: 0;
+}
+
+.stock-picker .stock-box {
+  animation: ticker-move-row 20s linear infinite;
+}
+
+@keyframes ticker-move-row {
+  0% {
+    transform: translateX(75vw);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+
+.stock-box {
+  display: inline-block;
+  min-width: 180px;
+  padding: 10px 18px;
+  margin: 0 8px 8px 0;
+  background: #000000;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 1rem;
+  vertical-align: top;
+  transition: box-shadow 0.2s;
+}
+
+.stock-box .stock-symbol {
+  display: block;
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-bottom: 2px;
+  color: #fff;
+}
+
+.stock-box .stock-price {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 1.05em;
+  margin-right: 8px;
+  color: green;
+  transition: color 0.2s;
+  animation: blink 1s step-start 0s infinite;
+}
+
+.stock-box .stock-change {
+  display: inline-block;
+  font-size: 0.98em;
+  font-weight: 500;
+  margin-left: 2px;
+  transition: color 0.2s;
+}
+
+.stock-box .stock-change.up {
+  color: #1ca97c;
+}
+
+.stock-box .stock-change.down {
+  color: #e14c4c;
+}
+
+.stock-box .stock-price.flash-green {
+  color: #1ca97c !important;
+  animation: flash-green 0.7s;
+}
+
+.stock-box .stock-price.flash-red {
+  color: #e14c4c !important;
+  animation: flash-red 0.7s;
+}
+
+.stock-box:has(.up) .stock-price {
+    color: aqua;
+}
+
+.stock-box:has(.down) .stock-price {
+    color: red;
+}
+
+@keyframes flash-green {
+  0% { background: #e6f9f1; }
+  100% { background: transparent; }
+}
+
+@keyframes flash-red {
+  0% { background: #fdeaea; }
+  100% { background: transparent; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .stock-box {
+    min-width: 120px;
+    font-size: 0.95rem;
+    padding: 8px 8px;
+  }
+}

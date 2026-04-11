@@ -35,3 +35,11 @@
     padding: 40px 32px;
   }
 }
+
+.align-right {
+  text-align: right;
+}
+
+.align-center {
+  text-align: center;
+}
