@@ -1,0 +1,42 @@
+.info-container {
+    background-color: #eb1933;
+    color: #fff;
+    padding: 10px 0;
+    border-radius: 10px 0 0 0;
+}
+
+.info > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info > div > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.info p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 500;
+}
+
+.info p a {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+span.icon {
+    width: 18px;
+    height: 18px;
+}

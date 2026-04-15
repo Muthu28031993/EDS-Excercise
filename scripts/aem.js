@@ -375,6 +375,13 @@ function decorateTemplateAndTheme() {
   if (theme) addClasses(document.body, theme);
 }
 
+function decorateIcons(element, prefix = '') {
+  const icons = element.querySelectorAll('span.icon');
+  [...icons].forEach((span) => {
+    decorateIcon(span, prefix);
+  });
+}
+
 /** adding class name in a row level */
 export function applyBlockItemStyles(block) {
   const rows = [...block.children];
@@ -469,18 +476,6 @@ function decorateIcon(span, prefix = '', alt = '') {
   img.width = 16;
   img.height = 16;
   span.append(img);
-}
-
-/**
- * Add <img> for icons, prefixed with codeBasePath and optional prefix.
- * @param {Element} [element] Element containing icons
- * @param {string} [prefix] prefix to be added to icon the src
- */
-function decorateIcons(element, prefix = '') {
-  const icons = element.querySelectorAll('span.icon');
-  icons.forEach((span) => {
-    decorateIcon(span, prefix);
-  });
 }
 
 /**
