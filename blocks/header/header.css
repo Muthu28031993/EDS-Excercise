@@ -1,3 +1,19 @@
+.header-wrapper {
+  padding: 10px 0;
+}
+
+.header-wrapper a {
+  color: #000;
+  font-size: 16px;
+  font-weight: lighter;
+  line-height: 22px;
+}
+
+.header-wrapper a:hover {
+  text-decoration: none;
+  color: #eb1933;
+}
+
 /* header and nav layout */
 header .nav-wrapper {
   background-color: var(--background-color);
@@ -159,6 +175,8 @@ header nav .nav-sections {
   flex: 1 1 auto;
   display: none;
   visibility: hidden;
+  max-width: max-content;
+  margin-left: auto;
 }
 
 header nav[aria-expanded='true'] .nav-sections {
@@ -206,12 +224,18 @@ header nav .nav-sections ul > li > ul > li {
     content: '';
     display: inline-block;
     position: absolute;
-    top: 0.5em;
+    top: 0.38em;
     right: 2px;
     transform: rotate(135deg);
     width: 6px;
     height: 6px;
     border: 2px solid currentcolor;
+    border-radius: 0 1px 0 0;
+    border-width: 2px 2px 0 0;
+  }
+
+  header nav .nav-sections .nav-drop:hover:after {
+    border: 2px solid #eb1933;
     border-radius: 0 1px 0 0;
     border-width: 2px 2px 0 0;
   }
@@ -270,3 +294,21 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+header nav .nav-tools .default-content-wrapper p a{
+  background-color: #eb1933;
+  padding: 8px 25px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: lighter;
+  line-height: 27px;
+}
+
+header nav .nav-tools .default-content-wrapper p a:hover {
+  background-color: #022559;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+
