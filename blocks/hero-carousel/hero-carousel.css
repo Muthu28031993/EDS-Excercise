@@ -1,3 +1,7 @@
+div.hero-carousel-wrapper nav {
+  display: none;
+}
+
 main > .section > div.hero-carousel-wrapper {
     max-width: unset;
 }
@@ -124,15 +128,15 @@ main > .section > div.hero-carousel-wrapper {
   width: 44px;
   height: 44px;
   margin: 0;
-  border-radius: 50%;
   padding: 0;
-  background-color: rgb(19 19 19 / 25%);
+  background-color: transparent;
+  border: unset;
   transition: background-color 0.2s;
 }
 
 .hero-carousel .carousel-navigation-buttons button:hover,
 .hero-carousel .carousel-navigation-buttons button:focus-visible {
-  background-color: rgb(19 19 19 / 75%);
+  background-color: #fff;
 }
 
 .hero-carousel .carousel-navigation-buttons button::after {
@@ -147,6 +151,15 @@ main > .section > div.hero-carousel-wrapper {
   top: 50%;
   left: calc(50% + 2px);
   transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.hero-carousel .carousel-navigation-buttons button:hover {
+  padding: 25px;
+}
+
+.hero-carousel .carousel-navigation-buttons button:hover:after {
+  height: 14px;
+  width: 14px;
 }
 
 .hero-carousel .carousel-navigation-buttons button.slide-next::after {
@@ -169,4 +182,92 @@ main > .section > div.hero-carousel-wrapper {
   .hero-carousel .carousel-slide .carousel-slide-content[data-align='justify'] {
     --slide-content-width: auto;
   }
+}
+
+.hero-carousel .carousel-slide {
+  background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.4)); /* Dark overlay example; change rgba color/opacity as needed */
+}
+
+.hero-carousel .carousel-slide.center-align {
+  text-align: center;
+}
+
+.hero-carousel .carousel-slide .carousel-slide-image picture > img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.3;
+}
+
+.carousel-slide-content p {
+  margin: 0;
+}
+
+.carousel-slide-content p:first-child {
+  text-transform: uppercase;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+.carousel-slide-content h2 {
+  font-size: 70px;
+  line-height: 84px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.carousel-slide-content p:nth-child(n + 2) {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: lighter;
+  margin: 10px 0;
+}
+
+.carousel-slide-content p:nth-child(n + 3) {
+  display: flex;
+  margin: 20px 0 0 0;
+  gap: 16px;
+}
+
+.carousel-slide.center-align .carousel-slide-content p:nth-child(n + 3) {
+  justify-content: center;
+}
+
+.carousel-slide-content p:nth-child(n + 3) a {
+  display: flex;
+  align-items: center;
+}
+
+.carousel-slide-content p:nth-child(n + 3) a span.icon {
+  background-color: #eb1933;
+  margin-right: 3px;
+}
+
+.carousel-slide-content p:nth-last-child(2) {
+  margin: 30px 0;
+}
+
+.carousel-slide-content p:nth-last-child(2) a{
+  background-color: #eb1933;
+  padding: 8px 25px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: lighter;
+  line-height: 27px;
+}
+
+.carousel-slide-content p:last-child a{
+  background-color: #eb1933;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.carousel-slide-content p:last-child a span.icon {
+  background-color: transparent;
+}
+
+.carousel-slide-content p:nth-last-child(2) a:hover, .carousel-slide-content p:last-child a:hover {
+  background-color: #022559;
 }
