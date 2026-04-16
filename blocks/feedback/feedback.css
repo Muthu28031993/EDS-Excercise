@@ -1,0 +1,38 @@
+.feedback {
+    padding-top: 90px;
+    display: flex;
+    justify-content: center;
+}
+
+.feedback p {
+    margin: 0;
+}
+
+.feedback-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 25%;
+    margin: 0 auto;
+}
+
+.feedback-icons, .feedback-icons span.icon, .feedback-icons img {
+    width: 70px;
+    height: 70px;
+}
+
+.feedback-num {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 40px;
+    color: #eb1933;
+}
+
+.feedback-content p:last-child {
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: lighter;
+    font-style: oblique;
+    margin-top: 10px;
+}
