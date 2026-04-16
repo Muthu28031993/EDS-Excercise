@@ -271,3 +271,22 @@ main > .section > div.hero-carousel-wrapper {
 .carousel-slide-content p:nth-last-child(2) a:hover, .carousel-slide-content p:last-child a:hover {
   background-color: #022559;
 }
+
+/* --- Slide content bottom-to-top animation --- */
+.carousel-slide-content h1,
+.carousel-slide-content h2,
+.carousel-slide-content h3,
+.carousel-slide-content h4,
+.carousel-slide-content h5,
+.carousel-slide-content h6,
+.carousel-slide-content p {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 2s cubic-bezier(0.4,0,0.2,1), transform 2s cubic-bezier(0.4,0,0.2,1);
+}
+
+.carousel-slide-content .slide-content-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* --- End slide content animation --- */

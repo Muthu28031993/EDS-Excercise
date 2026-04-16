@@ -44,6 +44,22 @@ function showSlide(block, slideIndex = 0) {
     left: activeSlide.offsetLeft,
     behavior: 'smooth',
   });
+
+  // Animation logic for slide content
+  slides.forEach((slide, idx) => {
+    const content = slide.querySelector('.carousel-slide-content');
+    if (content) {
+      content.querySelectorAll('h1, h2, h3, h4, h5, h6, p').forEach((el, i) => {
+        el.classList.remove('slide-content-animate');
+        el.style.transitionDelay = '';
+        if (idx === realSlideIndex) {
+          // Stagger the animation
+          el.classList.add('slide-content-animate');
+          el.style.transitionDelay = `${i * 80}ms`;
+        }
+      });
+    }
+  });
 }
 
 function bindEvents(block) {
@@ -161,4 +177,6 @@ export default async function decorate(block) {
   if (!isSingleSlide) {
     bindEvents(block);
   }
+  // Ensure animation for first slide on initial load
+  showSlide(block, 0);
 }
