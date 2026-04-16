@@ -1,0 +1,57 @@
+
+import { createOptimizedPicture, applyBlockItemStyles } from '../../scripts/aem.js';
+
+export default function decorate(block) {
+  /* change to ul, li */
+  applyBlockItemStyles(block);
+
+  const ul = document.createElement('ul');
+
+  [...block.children].forEach((row) => {
+    const li = document.createElement('li');
+
+    // preserve classes and dataset from the original row
+    const rowClasses = Array.from(row.classList || []);
+    rowClasses.forEach((c) => { if (c) li.classList.add(c); });
+
+    Object.keys(row.dataset || {}).forEach((k) => {
+      li.dataset[k] = row.dataset[k];
+    });
+
+    while (row.firstElementChild) li.append(row.firstElementChild);
+
+    [...li.children].forEach((div) => {
+      if (div.children.length === 1 && div.querySelector('picture')) {
+        div.className = 'cards-card-image';
+      } else {
+        div.className = 'cards-card-body';
+      }
+    });
+
+    ul.append(li);
+  });
+
+  /* ✅ NEW LOGIC: Auto-number cards */
+  const cards = ul.querySelectorAll('li');
+  cards.forEach((card, index) => {
+    const numberSpan = document.createElement('span');
+    numberSpan.className = 'cards-card-number';
+
+    // Format as 01, 02, 03, etc.
+    numberSpan.textContent = String(index + 1).padStart(2, '0');
+
+    // Insert into card body (top position)
+    const body = card.querySelector('.cards-card-body');
+    if (body) {
+      body.prepend(numberSpan);
+    }
+  });
+
+  ul.querySelectorAll('picture > img').forEach((img) =>
+    img.closest('picture').replaceWith(
+      createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }])
+    )
+  );
+
+  block.replaceChildren(ul);
+}
