@@ -1,4 +1,3 @@
-
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
@@ -176,6 +175,30 @@ export default async function decorate(block) {
   );
 
   const navSections = nav.querySelector('.nav-sections');
+
+  // Add class to <li> elements with <a> and no class
+  // Top-level nav-link-item
+  navSections
+    ?.querySelectorAll('.default-content-wrapper > ul > li')
+    .forEach((li) => {
+      if (
+        li.querySelector('a') &&
+        li.classList.length === 0
+      ) {
+        li.classList.add('nav-link-item');
+      }
+    });
+  // Subnav nav-sublink-item
+  navSections
+    ?.querySelectorAll('.default-content-wrapper > ul > li ul > li')
+    .forEach((li) => {
+      if (
+        li.querySelector('a') &&
+        li.classList.length === 0
+      ) {
+        li.classList.add('nav-sublink-item');
+      }
+    });
 
   /* ===========================
      Top Level Nav
