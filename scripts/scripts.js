@@ -123,6 +123,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateColumnsAccordionSection(main); // <-- custom logic for columns-accordion
   decorateButtons(main);
 }
 
@@ -187,3 +188,20 @@ async function loadPage() {
 }
 
 loadPage();
+
+function decorateColumnsAccordionSection(main) {
+  const section = main.querySelector('.section.columns-accordion');
+  if (section) {
+    const columnsWrapper = section.querySelector('.columns-wrapper');
+    const accordionWrapper = section.querySelector('.accordion-wrapper');
+    const textContent = columnsWrapper.children[0].children[0].children[0];
+    const h2Tag = textContent.children[1];
+    console.log(h2Tag);
+    if (h2Tag) {
+        if (accordionWrapper.parentNode !== textContent) {
+          accordionWrapper.parentNode.removeChild(accordionWrapper);
+        }
+        h2Tag.insertAdjacentElement('afterend', accordionWrapper);
+      }
+  }
+}
