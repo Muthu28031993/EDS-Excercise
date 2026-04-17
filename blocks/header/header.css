@@ -310,3 +310,11 @@ header nav .nav-tools .default-content-wrapper p a:hover {
   cursor: pointer;
   text-decoration: none;
 }
+
+.nav-link-item:has(.nav-sublink-item) ul {
+  display: none !important;
+}
+
+.nav-link-item:has(.nav-sublink-item):hover ul {
+  display: block !important;
+}

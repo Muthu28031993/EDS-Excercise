@@ -145,8 +145,8 @@ main > .section > div.hero-carousel-wrapper {
   border: 2px solid;
   border-bottom: 0;
   border-left: 0;
-  height: 12px;
-  width: 12px;
+  height: 20px;
+  width: 20px;
   position: absolute;
   top: 50%;
   left: calc(50% + 2px);
