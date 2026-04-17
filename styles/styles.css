@@ -494,3 +494,78 @@ main .section.highlight {
 .column-form .cf-form .cf-form-field:has(button) button:hover {
   background-color: #022559 !important;
 }
+
+.column-form .columns > div > div:first-child {
+  border: 1px solid rgba(128, 128, 128, 0.15);
+    padding: 30px 25px;
+    box-shadow: 5px 10px 15px 2px rgba(128, 128, 128, 0.15);
+    border-radius: 3px;
+    max-height: fit-content;
+}
+
+.column-form .user-content {
+  flex-direction: column !important;
+  margin: 0;
+  position: relative;
+}
+
+.column-form .user-content h4 {
+  position: absolute;
+}
+
+.column-form .user-content h4:first-of-type {
+  bottom: -10%;
+  left: 0;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #eb1933;
+  font-family: monospace;
+}
+
+.column-form .user-content .user-name {
+  position: absolute;
+  bottom: -25%;
+  left: 0;
+}
+
+.column-form .user-content h4:last-of-type {
+  bottom: -10%;
+  left: 30%;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #eb1933;
+  font-family: monospace;
+  text-transform: uppercase;
+}
+
+.column-form .user-content > p:has(img) {
+  width: 100%;
+  height: 100%;
+}
+
+.column-form .user-content > p:has(img) img {
+  border-radius: 3px;
+}
+
+.column-form .columns > div {
+  align-items: flex-start;
+}
+
+.column-form .columns > div > div:last-child {
+  text-align: left;
+  position: relative;
+}
+
+.column-form .columns > div > div:last-of-type p:last-of-type:not(:has(img, br)) {
+  margin-top: 9.5%;
+  display: inline-block;
+  position: relative;
+  left: 30%;
+  font-size: 17px;
+  line-height: 28px;
+  font-style: italic;
+  font-weight: 500;
+  color: #74787c;
+}
