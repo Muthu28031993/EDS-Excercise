@@ -1,0 +1,53 @@
+.section.transportation-container,
+.transportation-container {
+    background: #EB1933 !important;
+}
+
+main > .section > div.transportation-wrapper {
+    max-width: unset;
+}
+
+.transportation {
+    padding: 10px 0;
+}
+
+.transportation > div > div {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 20px;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.transportation > div > div h2 {
+    font-size: 100px;
+    line-height: 120px;
+    font-weight: bold;
+    color: transparent;
+    min-width: max-content;
+    margin: 60px 0;
+    /* Show background image through text */
+    background: url('http://localhost:3000/media_1a6072796cdde7b3e9eea63684444d6d59c1e1d8b.jpg?width=750&format=jpg&optimize=medium') center center / cover no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: led-marquee 12s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes led-marquee {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.transportation > div > div h2 a {
+    color: transparent;
+}
+
+.transportation > div > div h2 a:hover {
+    text-decoration: none;
+}
