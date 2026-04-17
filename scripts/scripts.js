@@ -123,6 +123,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  decorateColumnsFormSection(main); // <-- custom logic for columns-form
   decorateColumnsAccordionSection(main); // <-- custom logic for columns-accordion
   decorateButtons(main);
 }
@@ -202,6 +203,23 @@ function decorateColumnsAccordionSection(main) {
           accordionWrapper.parentNode.removeChild(accordionWrapper);
         }
         h2Tag.insertAdjacentElement('afterend', accordionWrapper);
+      }
+  }
+}
+
+function decorateColumnsFormSection(main) {
+  const section = main.querySelector('.section.column-form');
+  if (section) {
+    const columnsWrapper = section.querySelector('.columns-wrapper');
+    const formWrapper = section.querySelector('.custom-form-wrapper');
+    const textContent = columnsWrapper.children[0].children[0].children[0];
+    const h2Tag = textContent.children[1];
+    console.log(h2Tag);
+    if (h2Tag) {
+        if (formWrapper.parentNode !== textContent) {
+          formWrapper.parentNode.removeChild(formWrapper);
+        }
+        h2Tag.insertAdjacentElement('afterend', formWrapper);
       }
   }
 }

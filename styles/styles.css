@@ -419,3 +419,78 @@ main .section.highlight {
 .section.columns-accordion .accordion details[open] .accordion-item-body {
   border: none;
 }
+
+.column-form p, .column-form h2, .column-form h3, .column-form h4 {
+  margin: 0;
+}
+
+.column-form .columns > div > div > p {
+  color: #eb1933;
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 500;
+  font-style: oblique;
+  text-align: center;
+}
+
+.column-form .columns > div > div > h2 {
+  font-size: 45px;
+  line-height: 54px;
+  font-weight: lighter;
+  margin: 10px 0 30px 0;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+}
+
+.column-form .cf-form {
+  background-color: transparent !important;
+}
+
+.column-form .cf-form .cf-form-field label {
+  display: none;
+}
+
+.column-form .cf-form .cf-form-field input, .column-form .cf-form .cf-form-field select {
+  border: 1px solid #dddddd !important;
+}
+
+.column-form .cf-form .cf-form-field input {
+  width: 90% !important;
+}
+
+.column-form .cf-form .cf-form-field:has(textarea), .column-form .cf-form .cf-form-field:has(button) {
+  width: 100% !important;
+  text-align: center;
+}
+
+.column-form .cf-form .cf-form-field:has(textarea) textarea {
+  width: 95% !important;
+  border: 1px solid #dddddd !important;
+  height: 110px;
+}
+
+.column-form .cf-form .cf-form-field select {
+  width: 99% !important;
+  border-radius: 5px;
+}
+
+.column-form .cf-form {
+  flex-direction: row !important;
+  flex-wrap: wrap;
+}
+
+.column-form .cf-form .cf-form-field {
+  width: calc(50% - 10px);
+  display: inline !important;
+}
+
+.column-form .cf-form .cf-form-field:has(button) button {
+  background-color: #eb1933 !important;
+  border-radius: unset !important;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+.column-form .cf-form .cf-form-field:has(button) button:hover {
+  background-color: #022559 !important;
+}
