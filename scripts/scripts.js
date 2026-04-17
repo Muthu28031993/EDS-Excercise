@@ -216,10 +216,154 @@ function decorateColumnsFormSection(main) {
     const h2Tag = textContent.children[1];
     console.log(h2Tag);
     if (h2Tag) {
-        if (formWrapper.parentNode !== textContent) {
-          formWrapper.parentNode.removeChild(formWrapper);
-        }
-        h2Tag.insertAdjacentElement('afterend', formWrapper);
+      if (formWrapper.parentNode !== textContent) {
+        formWrapper.parentNode.removeChild(formWrapper);
       }
+      h2Tag.insertAdjacentElement('afterend', formWrapper);
+    }
+
+    // --- Play button overlay and modal logic for image ---
+    const img = section.querySelector('img');
+    if (img && !img.closest('.video-play-wrapper')) {
+      // Create a wrapper for positioning
+      const wrapper = document.createElement('div');
+      wrapper.className = 'video-play-wrapper';
+      wrapper.style.position = 'relative';
+      wrapper.style.display = 'inline-block';
+      img.parentNode.insertBefore(wrapper, img);
+      wrapper.appendChild(img);
+      // Create play button overlay with wave animation
+      const playBtn = document.createElement('div');
+      playBtn.className = 'custom-play-btn';
+      playBtn.innerHTML = `
+        <span class="waves">
+          <span class="wave"></span>
+          <span class="wave"></span>
+          <span class="wave"></span>
+        </span>
+        <span class="play-icon">
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="24" fill="#fff"/>
+            <polygon points="20,16 36,24 20,32" fill="#000"/>
+          </svg>
+        </span>
+      `;
+      playBtn.style.position = 'absolute';
+      playBtn.style.top = '50%';
+      playBtn.style.left = '50%';
+      playBtn.style.transform = 'translate(-50%, -50%)';
+      playBtn.style.cursor = 'pointer';
+      playBtn.style.zIndex = '2';
+      playBtn.title = 'Play Video';
+      wrapper.appendChild(playBtn);
+      // Inject animation CSS if not already present
+      if (!document.getElementById('custom-play-btn-css')) {
+        const style = document.createElement('style');
+        style.id = 'custom-play-btn-css';
+        style.textContent = `
+          .custom-play-btn {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: transparent;
+            box-shadow: none;
+          }
+          .custom-play-btn .play-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+          }
+          .custom-play-btn .waves {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
+          }
+          .custom-play-btn .wave {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transform: translate(-50%, -50%) scale(1);
+            animation: wave-anim 1.8s infinite linear;
+            opacity: 0.7;
+          }
+          .custom-play-btn .wave:nth-child(2) {
+            animation-delay: 0.6s;
+          }
+          .custom-play-btn .wave:nth-child(3) {
+            animation-delay: 1.2s;
+          }
+          @keyframes wave-anim {
+            0% {
+              transform: translate(-50%, -50%) scale(1);
+              opacity: 0.7;
+            }
+            70% {
+              opacity: 0.2;
+            }
+            100% {
+              transform: translate(-50%, -50%) scale(1.8);
+              opacity: 0;
+            }
+          }
+        `;
+        document.head.appendChild(style);
+      }
+      // Modal logic
+      playBtn.addEventListener('click', () => {
+        const modal = document.createElement('div');
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100vw';
+        modal.style.height = '100vh';
+        modal.style.background = 'rgba(0,0,0,0.85)';
+        modal.style.display = 'flex';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.zIndex = '9999';
+        modal.style.flexDirection = 'column';
+        const closeBtn = document.createElement('div');
+        closeBtn.innerHTML = '&times;';
+        closeBtn.style.position = 'absolute';
+        closeBtn.style.top = '32px';
+        closeBtn.style.right = '48px';
+        closeBtn.style.fontSize = '48px';
+        closeBtn.style.color = '#fff';
+        closeBtn.style.cursor = 'pointer';
+        closeBtn.style.zIndex = '10000';
+        closeBtn.title = 'Close';
+        modal.appendChild(closeBtn);
+        const iframe = document.createElement('iframe');
+        iframe.width = Math.min(window.innerWidth * 0.9, 900);
+        iframe.height = Math.min(window.innerHeight * 0.8, 506);
+        iframe.src = 'https://www.youtube.com/embed/IgM0smVoPHs?autoplay=1';
+        iframe.frameBorder = '0';
+        iframe.allow = 'autoplay; fullscreen';
+        iframe.allowFullscreen = true;
+        iframe.style.background = '#000';
+        iframe.style.borderRadius = '8px';
+        modal.appendChild(iframe);
+        closeBtn.onclick = () => document.body.removeChild(modal);
+        modal.onclick = (e) => {
+          if (e.target === modal) document.body.removeChild(modal);
+        };
+        document.body.appendChild(modal);
+      });
+    }
+    // --- End video modal logic ---
   }
 }
