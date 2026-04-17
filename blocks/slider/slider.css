@@ -1,0 +1,149 @@
+main > .section > div.slider-wrapper {
+    max-width: unset;
+}
+
+.slider {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+.slider::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.slider-card {
+    width: 360px;
+    height: 400px;
+    margin: 0 15px;
+    scroll-snap-align: start;
+    border-radius: 5px;
+    color: #fff;
+    padding: 20px 30px;
+    position: relative;
+    overflow: hidden; /* Ensure overlay stays within card */
+    transition: background-size 0.6s cubic-bezier(0.4,0,0.2,1);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.slider-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-image: var(--slider-bg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    transform: scale(1);
+}
+
+.slider-card:hover {
+    background-size: 120%;
+}
+
+.slider-card:hover::after {
+    transform: scale(1.2);
+}
+
+.slider-card::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0,0,0,0.6); /* dark overlay */
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: width 1s cubic-bezier(0.4,0,0.2,1), height 1s cubic-bezier(0.4,0,0.2,1), opacity 1s, transform 1s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1;
+}
+
+.slider-card:hover::before {
+    width: 200%;
+    height: 200%;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.slider-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.slider-card h2:has(picture) {
+    display: none;
+}
+
+.slider-card h2,
+.slider-card p {
+    margin: 0;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.slider-card p:has(span.icon) {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s, transform 0.5s;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+}
+
+.slider-card:hover h2,
+.slider-card:hover p {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+
+.slider-card:hover p:has(span.icon) {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.3s;
+}
+
+.slider-card h2 {
+    font-size: 30px;
+    line-height: 36px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.slider-card p {
+    font-size: 18px;
+    line-height: 27px;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.slider-card p:has(span.icon) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.slider-card p:has(span.icon) a span.icon {
+    width: 40px;
+    height: 40px;
+}
+
+.slider-card p:has(span.icon) a span.icon img {
+    transform: rotate(-40deg);
+}
+
+.slider-card p:has(span.icon) a {
+    display: flex;
+    background-color: #eb1933;
+    padding: 10px;
+}
