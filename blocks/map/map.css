@@ -1,0 +1,33 @@
+main > .section > div.map-wrapper {
+    max-width: unset;
+    padding-top: 90px;
+}
+
+.map > div > div {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.map > div > div p {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0;
+    font-weight: 500;
+    color: #eb1933;
+    text-transform: uppercase;
+    font-family: monospace;
+}
+
+.map > div > div h2, .map > div > div h2 strong {
+    font-size: 45px;
+    line-height: 52px;
+    margin: 20px 0;
+    font-weight: 700;
+    text-transform: capitalize;
+    font-family: sans-serif;
+}
+
+.map > div > div h2 strong {
+    color: #eb1933;
+}
