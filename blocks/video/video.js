@@ -14,7 +14,7 @@ export default function decorate(block) {
   } catch (e) { return block.innerHTML = ''; }
   block.innerHTML = '';
   if (!isYouTube && !isDirectVideo) return;
-  const fullscreenWrapper = Object.assign(document.createElement('div'), { className: 'video-fullscreen-wrapper', style: 'position:relative;width:100vw;height:100vh;overflow:hidden;' });
+  const fullscreenWrapper = Object.assign(document.createElement('div'), { className: 'video-fullscreen-wrapper', style: 'position:relative;height:100vh;' });
   let videoElem, playPauseBtn, isPlaying = true, player;
   const btnStyle = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;font-size:3rem;background:rgba(0,0,0,0.5);color:#fff;border:none;border-radius:50%;width:64px;height:64px;display:flex;align-items:center;justify-content:center;cursor:pointer;';
   if (isYouTube) {
